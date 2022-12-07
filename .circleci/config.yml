@@ -196,6 +196,10 @@ jobs:
       - attach_workspace:
           at: .circleci/ansible/
       - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
+      - run:
           name: Install dependencies
           command: |
             yum install -y python3 
