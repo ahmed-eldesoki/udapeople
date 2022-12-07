@@ -168,7 +168,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:14.8.2-buster-browsers-legacy
+      - image: cimg/node:14.20
     steps:
       - checkout
       - run:
