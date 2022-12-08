@@ -203,7 +203,7 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y python3 
-            yum install -y ansible
+  
             yum install -y nodejs npm
 
 
