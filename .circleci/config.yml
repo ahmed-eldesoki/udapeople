@@ -140,6 +140,7 @@ jobs:
       - run:
           name: Install tar utility
           command: |
+            cat .circleci/ansible/inventory.txt
             yum install -y tar gzip
       - run:
           name: Install tar utility
