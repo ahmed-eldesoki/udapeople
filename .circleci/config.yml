@@ -148,9 +148,9 @@ jobs:
             - project/.circleci/ansible
 
       - run:
-          name: Install dependencies
+          name: debug inv
           command: |
-              ls .circleci/ansible/inventory.txt
+              cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -168,7 +168,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-              ls  ~/project/.circleci/ansible/inventory.txt
+              cat  ~/project/.circleci/ansible/inventory.txt
       - run:
           name: Configure server
           command: |
