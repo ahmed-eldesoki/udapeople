@@ -142,15 +142,15 @@ jobs:
           command: |
             cat .circleci/ansible/inventory.txt
             yum install -y tar gzip
-      - run:
-          name: Install tar utility
-          command: |
-             mkdir workspace
-
       - persist_to_workspace:
           root: ~/
           paths: 
             - project/.circleci/ansible
+
+      - run:
+          name: Install dependencies
+          command: |
+              ls .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -164,6 +164,11 @@ jobs:
           name: Install dependencies
           command: |
               apk add --update ansible 
+      
+      - run:
+          name: Install dependencies
+          command: |
+              ls  ~/project/.circleci/ansible/inventory.txt
       - run:
           name: Configure server
           command: |
