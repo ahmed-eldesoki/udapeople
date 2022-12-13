@@ -136,7 +136,7 @@ jobs:
             \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> workspace/inventory.txt
+            --output text >> .circleci/ansible/inventory.txt
       - run:
           name: Install tar utility
           command: |
@@ -144,14 +144,14 @@ jobs:
             yum install -y tar gzip
             
       - persist_to_workspace:
-          root: workspace
+          root: .circleci/ansible
           paths: 
             - inventory.txt
 
       - run:
           name: debug inv
           command: |
-              cat workspace/inventory.txt
+              cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
