@@ -128,7 +128,7 @@ jobs:
                --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
-    
+      - run: mkdir -p workspace
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -136,21 +136,22 @@ jobs:
             \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> .circleci/ansible/inventory.txt
+            --output text >> workspace/inventory.txt
       - run:
           name: Install tar utility
           command: |
             cat .circleci/ansible/inventory.txt
             yum install -y tar gzip
+            
       - persist_to_workspace:
-          root: ~/
+          root: workspace
           paths: 
-            - project/.circleci/ansible
+            - inventory.txt
 
       - run:
           name: debug inv
           command: |
-              cat .circleci/ansible/inventory.txt
+              cat workspace/inventory.txt
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -159,20 +160,20 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
       - attach_workspace:
-          at: ~/project/.circleci/ansible/inventory.txt
+          at: /tmp/workspace
       - run:
           name: Install dependencies
           command: |
               apk add --update ansible 
       
       - run:
-          name: Install dependencies
+          name: debug
           command: |
-              cat  ~/project/.circleci/ansible/inventory.txt
+              cat  /tmp/workspace/inventory.txt
       - run:
           name: Configure server
           command: |
-             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+             ansible-playbook -i /tmp/workspace/inventory.txt ~/project/.circleci/ansible/configure-server.yml
       # Here's where you will add some code to rollback on failure  #
 
   run-migrations:
