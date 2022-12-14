@@ -169,10 +169,10 @@ jobs:
       - run:
           name: debug
           command: |
-              cat <<EOT >> inventory.txt
-              [web]
-              52.23.187.92
-              EOT
+             
+              echo "[web]" >> inventory.txt
+              echo "52.23.187.92" >> inventory.txt
+              
       - run:
           name: Configure server
           command: |
