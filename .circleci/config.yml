@@ -171,7 +171,7 @@ jobs:
           command: |
              
               echo "[web]" >> inventory.txt
-              echo "52.23.187.92" >> inventory.txt
+              echo "18.206.211.37" >> inventory.txt
               
       - run:
           name: Configure server
