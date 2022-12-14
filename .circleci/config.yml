@@ -167,11 +167,12 @@ jobs:
             python3 -m venv env
             . env/bin/activate
             pip install ansible
-          name: debug
-          command: |
+
+          # name: debug
+          # command: |
              
-              echo "[web]" >> inventory.txt
-              echo "18.206.211.37" >> inventory.txt
+          #     echo "[web]" >> inventory.txt
+          #     echo "18.206.211.37" >> inventory.txt
               
       - run:
           name: Configure server
