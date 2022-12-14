@@ -164,9 +164,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-              apk add --update ansible 
-      
-      - run:
+            python3 -m venv env
+            . env/bin/activate
+            pip install ansible
           name: debug
           command: |
              
