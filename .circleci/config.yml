@@ -154,7 +154,7 @@ jobs:
               cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
-      - image: circleci/python:3.6.2
+      - image: circleci/python
     steps:
       - checkout
       - add_ssh_keys:
@@ -164,18 +164,14 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            python3 -m venv env
-            . env/bin/activate
-            pip install --upgrade pip
-            pip install ansible
-            sudo apt update
-            sudo apt install rsync
-
-          # name: debug
-          # command: |
+              apk add --update ansible 
+      
+      - run:
+          name: debug
+          command: |
              
-          #     echo "[web]" >> inventory.txt
-          #     echo "18.206.211.37" >> inventory.txt
+              echo "[web]" >> inventory.txt
+              echo "18.206.211.37" >> inventory.txt
               
       - run:
           name: Configure server
