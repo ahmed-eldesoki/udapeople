@@ -165,7 +165,7 @@ jobs:
           name: Install dependencies
           command: |
              pip install -U  --upgrade pip
-             pip install ansible
+             pip3 install ansible
       
       - run:
           name: debug
