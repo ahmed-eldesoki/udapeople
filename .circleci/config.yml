@@ -203,7 +203,7 @@ jobs:
                   curl https://kvdb.io/NZvRHnpZbjoDFWBPdQhF1D/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi
      # Here's where you will add some code to rollback on failure    
-       run:
+      - run:
           name: Send migration results to KVDP
           command: |
              cat ~/project/backend/migrations_dump.txt
