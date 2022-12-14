@@ -168,6 +168,8 @@ jobs:
             . env/bin/activate
             pip install --upgrade pip
             pip install ansible
+            sudo apt update
+            sudo apt install rsync
 
           # name: debug
           # command: |
