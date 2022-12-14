@@ -165,7 +165,7 @@ jobs:
           name: Install dependencies
           command: |
              
-             pip install -U  --upgrade pip
+            #  pip install -U  --upgrade pip
              pip --disable-pip-version-check install ansible
       
       - run:
