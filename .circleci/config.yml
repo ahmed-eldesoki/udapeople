@@ -154,7 +154,7 @@ jobs:
               cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
-      - image: ansible/ansible:ubuntu1604
+      - image: circleci/python
     steps:
       - checkout
       - add_ssh_keys:
@@ -163,9 +163,10 @@ jobs:
       #     at: /tmp/workspace
       - run:
           name: Install dependencies
-          command: |             
-            pip  --disable-pip-version-check install -U  --upgrade pip
-            pip --disable-pip-version-check install ansible
+          command: |
+              pip   install --upgrade pip
+
+              pip install ansible
       
       - run:
           name: debug
