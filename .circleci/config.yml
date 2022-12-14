@@ -154,7 +154,7 @@ jobs:
               cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/python:3.6.2
     steps:
       - checkout
       - add_ssh_keys:
