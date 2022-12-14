@@ -166,7 +166,8 @@ jobs:
           command: |
             python3 -m venv env
             . env/bin/activate
-            pip3 install ansible
+            pip install --upgrade pip
+            pip install ansible
 
           # name: debug
           # command: |
