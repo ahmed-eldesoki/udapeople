@@ -163,10 +163,9 @@ jobs:
       #     at: /tmp/workspace
       - run:
           name: Install dependencies
-          command: |
-             
+          command: |             
             #  pip install -U  --upgrade pip
-             pip --disable-pip-version-check install ansible
+            pip --disable-pip-version-check install ansible
       
       - run:
           name: debug
