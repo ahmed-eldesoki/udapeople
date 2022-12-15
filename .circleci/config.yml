@@ -253,10 +253,11 @@ jobs:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
       # attach workspace
       - run:
-          name: Install tar utility
+          name: Install tar utility & node
           command: |
+             sudo apt-get update
              sudo apt-get install curl
-             sudo curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
              sudo apt-get install nodejs
             
 
