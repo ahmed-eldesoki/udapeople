@@ -255,10 +255,10 @@ jobs:
       - run:
           name: Install tar utility
           command: |
-             apt-get install curl
-             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
-             apt-get install nodejs
-             node -v 
+             sudo apt-get install curl
+             sudo curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+             sudo apt-get install nodejs
+            
 
 
 
