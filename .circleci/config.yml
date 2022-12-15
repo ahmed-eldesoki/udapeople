@@ -230,7 +230,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=18.206.211.37
+            export BACKEND_IP=54.163.47.22
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
@@ -284,7 +284,7 @@ jobs:
             # echo "Contents  of the inventory.txt file is -------"
             # cat inventory.txt
             echo "[web]" >> inventory.txt
-            echo "18.206.211.37" >> inventory.txt
+            echo "54.163.47.22" >> inventory.txt
             ansible-playbook -i inventory.txt .circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
    
