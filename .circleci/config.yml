@@ -256,7 +256,7 @@ jobs:
           name: Install tar utility
           command: |
              apt-get install curl
-             curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
+             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
              apt-get install nodejs
              node -v 
 
