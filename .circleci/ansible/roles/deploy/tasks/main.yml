@@ -1,4 +1,9 @@
 ---
+- name: Create a directory for artifact
+  ansible.builtin.file:
+    path: /opt/artifact
+    state: directory
+
 - name: Extract artifact
   unarchive:
     src:  artifact.tar.gz
