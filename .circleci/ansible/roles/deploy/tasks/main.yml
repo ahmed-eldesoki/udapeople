@@ -1,7 +1,7 @@
 ---
 - name: Extract artifact
   unarchive:
-    src: artifact.tar.gz
+    src: /home/circleci/project/artifact.tar.gz
     dest: /opt/artifact
 - name: start app
   shell: |
