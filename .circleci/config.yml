@@ -243,6 +243,43 @@ jobs:
               npm run build
               tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
               aws s3 cp dist s3://udapeople-dce1286 --recursive
+
+  deploy-backend:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
+      # attach workspace
+      - run:
+          name: Install tar utility
+          command: |
+             yum install -y tar gzip
+             curl –sL https://rpm.nodesource.com/setup_10.x | bash -
+             yum install -y nodejs 
+
+      - run:
+          name: Install dependencies
+          command: |
+              pip   install --upgrade pip
+              pip install ansible
+      - run:
+          name: Deploy backend
+          command: |
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
+            # cd .circleci/ansible
+            # echo "Contents  of the inventory.txt file is -------"
+            # cat inventory.txt
+            echo "[web]" >> inventory.txt
+            echo "18.206.211.37" >> inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+      # Here's where you will add some code to rollback on failure  
    
    
 
