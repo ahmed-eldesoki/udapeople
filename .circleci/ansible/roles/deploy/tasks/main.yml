@@ -1,5 +1,5 @@
 ---
-- name: Extract foo.tgz into /var/lib/foo
+- name: Extract artifact
   unarchive:
     src: artifact.tar.gz
     dest: /opt/artifact
