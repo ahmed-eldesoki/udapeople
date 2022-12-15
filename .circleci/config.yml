@@ -255,9 +255,12 @@ jobs:
       - run:
           name: Install tar utility
           command: |
-             yum install -y tar gzip
-             curl –sL https://rpm.nodesource.com/setup_10.x | bash -
-             yum install -y nodejs 
+             apt-get install curl
+             curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
+             apt-get install nodejs
+             node -v 
+
+
 
       - run:
           name: Install dependencies
