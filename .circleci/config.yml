@@ -283,7 +283,7 @@ jobs:
             # # echo "Contents  of the inventory.txt file is -------"
             # # cat inventory.txt
             echo "[web]" >> inventory.txt
-            echo "54.163.47.22" >> inventory.txt
+            echo "34.229.138.4" >> inventory.txt
             ansible-playbook -i inventory.txt .circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
    
