@@ -261,10 +261,7 @@ jobs:
              sudo apt-get install curl
              curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
              sudo apt-get install nodejs
-            
-
-
-
+                   
       - run:
           name: Install dependencies
           command: |
@@ -310,10 +307,10 @@ workflows:
           # filters:
           #   branches:
           #     only: [test-feature-branch]
-      - configure-infrastructure
+      # - configure-infrastructure
       #     # requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend
       #     requires: [run-migrations]
-      # - deploy-backend
+      - deploy-backend
