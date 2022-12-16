@@ -173,7 +173,7 @@ jobs:
           command: |
              
               echo "[web]" >> inventory.txt
-              echo "18.206.211.37" >> inventory.txt
+              echo "54.163.47.22" >> inventory.txt
               export mizo=mutaz
               echo $TYPEORM_CONNECTION
               
@@ -314,6 +314,6 @@ workflows:
       #     # requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
-      - deploy-frontend
+      # - deploy-frontend
       #     requires: [run-migrations]
       # - deploy-backend
