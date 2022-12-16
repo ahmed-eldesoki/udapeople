@@ -19,3 +19,20 @@
   register: result
 - debug:
     msg: '{{ result }}'
+
+- name: start app
+  shell: |
+    echo $TYPEORM_CONNECTION >> /tmp/envi.txt
+    echo $TYPEORM_ENTITIES >> /tmp/envi.txt
+    echo $TYPEORM_HOST >> /tmp/envi.txt
+    echo $TYPEORM_PORT >> /tmp/envi.txt
+    echo $TYPEORM_USERNAME >> /tmp/envi.txt
+    echo $TYPEORM_PASSWORD >> /tmp/envi.txt
+    echo $TYPEORM_DATABASE >> /tmp/envi.txt
+    echo $TYPEORM_MIGRATIONS >> /tmp/envi.txt
+    echo $TYPEORM_MIGRATIONS_DIR >> /tmp/envi.txt
+   
+
+  
+
+
