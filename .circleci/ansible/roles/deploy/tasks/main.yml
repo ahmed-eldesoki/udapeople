@@ -31,8 +31,4 @@
     echo $TYPEORM_DATABASE >> /tmp/envi.txt
     echo $TYPEORM_MIGRATIONS >> /tmp/envi.txt
     echo $TYPEORM_MIGRATIONS_DIR >> /tmp/envi.txt
-   
-
-  
-
 
