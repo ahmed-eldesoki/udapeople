@@ -1,8 +1,12 @@
 ---
-- name: "upgrade packages."
-  become: true
-  apt:
-    upgrade: "yes"
+- name: test export
+  shell: |
+      export mizo=mutaz
+        echo $TYPEORM_CONNECTION
+# - name: "upgrade packages."
+#   become: true
+#   apt:
+#     upgrade: "yes"
 
 - name: "install dependencies."
   become: true
@@ -17,4 +21,4 @@
     name: pm2
     global: yes
     production: yes
-    state: present
+    state: present  
