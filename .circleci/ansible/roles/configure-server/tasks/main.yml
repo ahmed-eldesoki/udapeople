@@ -2,7 +2,7 @@
 - name: test export
   shell: |
       export mizo=mutaz
-        echo $TYPEORM_CONNECTION
+      echo $TYPEORM_CONNECTION
 # - name: "upgrade packages."
 #   become: true
 #   apt:
