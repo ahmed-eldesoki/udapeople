@@ -270,18 +270,18 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            # cd backend
-            # npm i
-            # npm run build
-            # cd ..
-            # pwd
-            # # Zip the directory
-            # tar -C backend -czvf artifact.tar.gz .
-            # mkdir .circleci/ansible/roles/deploy/files
-            # cp artifact.tar.gz .circleci/ansible/roles/deploy/files/
-            # # cd .circleci/ansible
-            # # echo "Contents  of the inventory.txt file is -------"
-            # # cat inventory.txt
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            pwd
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
+            mkdir .circleci/ansible/roles/deploy/files
+            cp artifact.tar.gz .circleci/ansible/roles/deploy/files/
+            # cd .circleci/ansible
+            # echo "Contents  of the inventory.txt file is -------"
+            # cat inventory.txt
             echo "[web]" >> inventory.txt
             echo "34.229.138.4" >> inventory.txt
             ansible-playbook -i inventory.txt .circleci/ansible/deploy-backend.yml

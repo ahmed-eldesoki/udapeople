@@ -1,13 +1,13 @@
 ---
-# - name: Create a directory for artifact
-#   ansible.builtin.file:
-#     path: /tmp/artifact
-#     state: directory
+- name: Create a directory for artifact
+  ansible.builtin.file:
+    path: /tmp/artifact
+    state: directory
 
-# - name: Extract artifact
-#   unarchive:
-#     src:  artifact.tar.gz
-#     dest: /tmp/artifact
+- name: Extract artifact
+  unarchive:
+    src:  artifact.tar.gz
+    dest: /tmp/artifact
 - name: start app
   shell: |
     npm install
