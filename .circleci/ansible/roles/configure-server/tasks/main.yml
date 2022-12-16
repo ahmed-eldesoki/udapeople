@@ -1,7 +1,8 @@
 ---
 - name: test export
   shell: |
-      export mizo=mutaz
+      # export mizo=mutaz
+      echo helloooo
       echo $TYPEORM_CONNECTION
       echo $TYPEORM_HOST
   register: result
