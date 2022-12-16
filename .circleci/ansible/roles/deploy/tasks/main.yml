@@ -1,16 +1,19 @@
 ---
-- name: Create a directory for artifact
-  ansible.builtin.file:
-    path: /tmp/artifact
-    state: directory
+# - name: Create a directory for artifact
+#   ansible.builtin.file:
+#     path: /tmp/artifact
+#     state: directory
 
-- name: Extract artifact
-  unarchive:
-    src:  artifact.tar.gz
-    dest: /tmp/artifact
+# - name: Extract artifact
+#   unarchive:
+#     src:  artifact.tar.gz
+#     dest: /tmp/artifact
 - name: start app
   shell: |
     cd /tmp/artifact
     npm install
     pm2 stop default
     pm2 start npm -- start
+  register: result
+- debug:
+    msg: '{{ result }}'
