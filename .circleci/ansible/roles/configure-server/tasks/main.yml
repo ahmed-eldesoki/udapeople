@@ -7,7 +7,9 @@
   register: result
 
 - debug:
-    msg: '{{ result }}''
+    msg: '{{ result }}'
+
+
 # - name: "upgrade packages."
 #   become: true
 #   apt:
