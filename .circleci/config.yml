@@ -84,9 +84,10 @@ jobs:
           name: front-end test
           command: |
               cd frontend
+              npm update path-parse --depth 3
               npm install
               npm audit fix --audit-level=critical --force
-              npm update path-parse --depth 3
+              
               # If the "npm audit fix" command above could not fix all critical vulnerabilities, try “npm audit fix --force” again
               npm audit fix --audit-level=critical --force
               npm audit  --audit-level=critical 
