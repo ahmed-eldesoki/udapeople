@@ -105,11 +105,9 @@ jobs:
               cd backend
               npm update path-parse --depth 3
               npm install   
-             
               npm audit fix --audit-level=critical --force
               npm audit fix --audit-level=critical --force
-              npm audit fix --audit-level=critical --force
-
+              npm audit fix --force
               npm audit --audit-level=critical
               
   deploy-infrastructure:
