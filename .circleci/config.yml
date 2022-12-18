@@ -84,7 +84,6 @@ jobs:
           name: front-end test
           command: |
               cd frontend
-              npm update path-parse --depth 3
               npm install
               npm audit fix --audit-level=critical --force
               
@@ -102,7 +101,9 @@ jobs:
       - run:
           name: back-end test
           command: |
+
               cd backend
+              npm update path-parse --depth 3
               npm install   
              
               npm audit fix --audit-level=critical --force
