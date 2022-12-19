@@ -2,7 +2,7 @@ version: 2.1
 
 commands:
   install_awscli:
-    descreption: install AWS CLI
+    description: install AWS CLI
     steps:
       - run: 
           name: aws cli installation
@@ -12,7 +12,7 @@ commands:
             sudo ./aws/install
 
   install_ansible:
-    descreption: install ansible
+    description: install ansible
     steps: 
       - run: 
           name: install ansible
