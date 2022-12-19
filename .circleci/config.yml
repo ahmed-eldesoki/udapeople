@@ -1,4 +1,5 @@
 version: 2.1
+
 commands:
   install_awscli:
     descreption: install AWS CLI
@@ -12,7 +13,7 @@ commands:
 
   install_ansible:
     descreption: install ansible
-    stepes: 
+    steps: 
       - run: 
           name: install ansible
           command: 
