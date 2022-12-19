@@ -1,6 +1,6 @@
 version: 2.1
 commands:
-  install_AWSCLI:
+  install_awscli:
     descreption: install AWS CLI
     steps:
       - run: 
@@ -10,7 +10,7 @@ commands:
             unzip awscliv2.zip
             sudo ./aws/install
 
-  install_Ansible:
+  install_ansible:
     descreption: install ansible
     stepes: 
       - run: 
@@ -138,7 +138,7 @@ jobs:
 
     steps:
       - checkout
-      - install_AWSCLI
+      - install_awscli
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -183,7 +183,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_AWSCLI
+      - install_awscli
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
       # - attach_workspace:
