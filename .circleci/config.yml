@@ -194,6 +194,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - install_awscli
       - install_ansible
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
@@ -205,7 +206,7 @@ jobs:
           command: |
              cd .circleci/ansible
              cat inventory.txt
-             ansible-playbook -i inventory.txt configyre-server.yml
+             ansible-playbook -i inventory.txt configure-server.yml
 
               
       - run:
