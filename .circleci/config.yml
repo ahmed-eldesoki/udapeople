@@ -22,16 +22,23 @@ commands:
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible
 
-# commands:
-#   destroy-environment:
-#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#     steps:
-#       - run:
-#           name: Destroy environments
-#           when: on_fail
-#           command: |
-#              aws cloudformation delete-stack --stack-name udapeople-backend-CIRCLE_WORKFLOW_ID:0:7}
 
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      workflow_id:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+
+    steps:
+      - run:
+          name: Destroy environments
+          when: on_fail
+          command: |
+             aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.workflow_id >>
+             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_id >>
+             aws s3 rm "s3://udapeople-<< parameters.workflow_id >>" --recursive
+ 
 jobs:
   build-frontend:
     docker:
@@ -165,10 +172,10 @@ jobs:
             --filters "Name=tag:project,Values=udapeople" \
             --output text >> .circleci/ansible/inventory.txt
       - run:
-          name: Install tar utility
+          name: inventory debug
           command: |
             cat .circleci/ansible/inventory.txt
-            yum install -y tar gzip
+  
             
       - persist_to_workspace:
           root: ~/
@@ -179,25 +186,27 @@ jobs:
           name: debug inv
           command: |
               cat .circleci/ansible/inventory.txt
+      
+      - destroy-environment
+
   configure-infrastructure:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_awscli
+      - install_ansible
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
-      # - attach_workspace:
-      #     at: /tmp/workspace
+      - attach_workspace:
+          at: ~/
       
       - run:
           name: debug
           command: |
-             
-              echo "[web]" >> inventory.txt
-              echo "54.163.47.22" >> inventory.txt
-              export mizo=mutaz
-              echo YPEORM_CONNECTION
+             cd .circleci/ansible
+             cat inventory 
+             ansible-playbook -i inventory.txt configyre-server.yml
+
               
       - run:
           name: Configure server
@@ -329,8 +338,8 @@ workflows:
           filters:
             branches:
               only: [main]
-      # - configure-infrastructure
-      #     # requires: [deploy-infrastructure]
+      - configure-infrastructure
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend

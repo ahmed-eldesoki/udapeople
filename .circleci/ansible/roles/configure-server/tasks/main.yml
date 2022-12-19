@@ -1,14 +1,14 @@
 ---
-- name: test export
-  shell: |
-      # export mizo=mutaz
-      echo helloooo
-      echo $TYPEORM_CONNECTION
-      echo $TYPEORM_HOST
-  register: result
+# - name: test export
+#   shell: |
+#       # export mizo=mutaz
+#       echo helloooo
+#       echo $TYPEORM_CONNECTION
+#       echo $TYPEORM_HOST
+#   register: result
 
-- debug:
-    msg: '{{ result }}'
+# - debug:
+#     msg: '{{ result }}'
 
 
 # - name: "upgrade packages."
@@ -16,17 +16,23 @@
 #   apt:
 # #     upgrade: "yes"
 
-# - name: "install dependencies."
-#   become: true
-#   apt:
-#     name: ["nodejs", "npm"]
-#     state: latest
-#     update_cache: yes
+- name: "download NodeJS"
+  become: true 
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
-# - name: "install pm2"
-#   become: true
-#   npm:
-#     name: pm2
-#     global: yes
-#     production: yes
-#     state: present  
+
+- name: "install NodeJS"
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present  
