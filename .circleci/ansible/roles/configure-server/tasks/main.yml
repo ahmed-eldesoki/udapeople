@@ -19,8 +19,10 @@
 - name: "download NodeJS"
   become: true 
   shell: |
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-
+    curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+    sudo npm install --global n
+    sudo n 13.8.0 
 
 - name: "install NodeJS"
   become: true
