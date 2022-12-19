@@ -1,4 +1,25 @@
 version: 2.1
+commands:
+  install_AWSCLI:
+    descreption: install AWS CLI
+    steps:
+      - run: 
+          name: aws cli installation
+          command: 
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+  install_Ansible:
+    descreption: install ansible
+    stepes: 
+      - run: 
+          name: install ansible
+          command: 
+            sudo apt update
+            sudo apt install software-properties-common
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible
 
 # commands:
 #   destroy-environment:
@@ -8,7 +29,7 @@ version: 2.1
 #           name: Destroy environments
 #           when: on_fail
 #           command: |
-#              aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+#              aws cloudformation delete-stack --stack-name udapeople-backend-CIRCLE_WORKFLOW_ID:0:7}
 
 jobs:
   build-frontend:
@@ -113,17 +134,18 @@ jobs:
               
   deploy-infrastructure:
     docker:
-      - image: amazon/aws-cli 
+     - image: cimg/base:stable
 
     steps:
       - checkout
+      - install_AWSCLI
       - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
             --template-file .circleci/files/backend.yml \
-            --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
+            --stack-name "udapeople-backend-CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="CIRCLE_WORKFLOW_ID:0:7}"  \
             --tags project=udapeople
       - run:
           name: Ensure front-end infrastructure exist
@@ -131,9 +153,8 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
                --tags project=udapeople \
-              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
-      - run: mkdir -p workspace
+              --stack-name "udapeople-frontend-CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="CIRCLE_WORKFLOW_ID:0:7}" 
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -149,9 +170,9 @@ jobs:
             yum install -y tar gzip
             
       - persist_to_workspace:
-          root: .circleci
+          root: ~/
           paths: 
-            - ansible
+            - project/.circleci/ansible/inventory.txt
 
       - run:
           name: debug inv
@@ -159,19 +180,14 @@ jobs:
               cat .circleci/ansible/inventory.txt
   configure-infrastructure:
     docker:
-      - image: circleci/python
+      - image: cimg/base:stable
     steps:
       - checkout
+      - install_AWSCLI
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
       # - attach_workspace:
       #     at: /tmp/workspace
-      - run:
-          name: Install dependencies
-          command: |
-              pip   install --upgrade pip
-
-              pip install ansible
       
       - run:
           name: debug
@@ -180,7 +196,7 @@ jobs:
               echo "[web]" >> inventory.txt
               echo "54.163.47.22" >> inventory.txt
               export mizo=mutaz
-              echo $TYPEORM_CONNECTION
+              echo YPEORM_CONNECTION
               
       - run:
           name: Configure server
@@ -207,7 +223,7 @@ jobs:
               if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
               then
           
-                curl https://kvdb.io/NZvRHnpZbjoDFWBPdQhF1D/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                curl https://kvdb.io/NZvRHnpZbjoDFWBPdQhF1D/migration_CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi
      # Here's where you will add some code to rollback on failure    
       - run:
@@ -238,9 +254,9 @@ jobs:
           name: Get backend url
           command: |
             export BACKEND_IP=54.163.47.22
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "API_URL = ${API_URL}"
-            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            export API_URL="http://BACKEND_IP}:3030"
+            echo "API_URL = API_URL}"
+            echo API_URL="http://BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
       - run:
           name: Deploy frontend objects
@@ -248,7 +264,7 @@ jobs:
               cd frontend
               npm install
               npm run build
-              tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+              tar -czvf artifact-"CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
               aws s3 cp dist s3://udapeople-dce1286 --recursive
 
   deploy-backend:
@@ -307,11 +323,11 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      # - deploy-infrastructure:
-          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          # filters:
-          #   branches:
-          #     only: [test-feature-branch]
+      - deploy-infrastructure:
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [main]
       # - configure-infrastructure
       #     # requires: [deploy-infrastructure]
       # - run-migrations:
