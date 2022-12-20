@@ -40,24 +40,24 @@ commands:
              aws s3 rm "s3://udapeople-<< parameters.workflow_id >>" --recursive
 
 
-    revert-migrations:
-        description: Revert the last migration
-        parameters:
-            workflow_id:
-                type: string      
-        steps:
-            - run:
-                name: Revert migrations
-                when: on_fail
-                command: |
-                  SUCCESS=$(curl --insecure  https://kvdb.io/${kvdb_bucket}/migration_<< parameters.workflow_id >>)
-                  # Logic for reverting the database state
-                  if (( $SUCCESS == 1 ));
-                  then
-                      cd ~/project/backend
-                      npm install
-                      npm run migration:revert
-                  fi  
+  revert-migrations:
+    description: Revert the last migration
+    parameters:
+        workflow_id:
+            type: string      
+    steps:
+        - run:
+            name: Revert migrations
+            when: on_fail
+            command: |
+              SUCCESS=$(curl --insecure  https://kvdb.io/${kvdb_bucket}/migration_<< parameters.workflow_id >>)
+              # Logic for reverting the database state
+              if (( $SUCCESS == 1 ));
+              then
+                  cd ~/project/backend
+                  npm install
+                  npm run migration:revert
+              fi  
 
 jobs:
   build-frontend:
@@ -229,7 +229,6 @@ jobs:
              ansible-playbook -i inventory.txt configure-server.yml
 
               
-
       - destroy-environment
 
   run-migrations:
@@ -258,10 +257,7 @@ jobs:
       - destroy-environment
 
 
-      - run:
-          name: Send migration results to KVDP
-          command: |
-             cat ~/project/backend/migrations_dump.txt
+
              
   deploy-frontend:
     docker:
