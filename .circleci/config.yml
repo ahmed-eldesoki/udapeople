@@ -58,7 +58,7 @@ commands:
                   npm install
                   npm run migration:revert
               fi  
-  install_NodeJS:
+  install_nodejs:
     description: install nodeJS
     steps:
         - run:
@@ -280,7 +280,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
-      - install_NodeJS
+      - install_nodejs
       - restore_cache:
           keys: "frontend-build"
       - run:
