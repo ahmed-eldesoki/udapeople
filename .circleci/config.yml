@@ -284,18 +284,6 @@ jobs:
       - install_nodejs
       - restore_cache:
           keys: "frontend-build"
-      - run:
-         name: Install tar utility
-         command: |
-            yum install -y tar gzip
-      # - attach_workspace:
-      #     at: /tmp/workspace
-      - run:
-          name: Install dependencies
-          command: |
-            yum install -y python3 
-            curl –sL https://rpm.nodesource.com/setup_10.x | bash -
-            yum install -y nodejs 
 
 
       - run:
@@ -314,48 +302,49 @@ jobs:
               npm run build
               tar -czvf artifact-"CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
               aws s3 cp dist s3://udapeople-dce1286 --recursive
-
+      - destroy-environment
+      - revert-migrations
   deploy-backend:
     docker:
-      - image: cimg/python
+      - image: cimg/base:stable
     steps:
       - checkout
+      - install_awscli
+      - install_nodejs
+      - install_ansible
+      - restore_cache:
+          keys: "backend-build"
       - add_ssh_keys:
           fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
-      # attach workspace
-      - run:
-          name: Install tar utility & node
-          command: |
-             sudo apt-get update
-             sudo apt-get install curl
-             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-             sudo apt-get install nodejs
 
       - run:
-          name: Install dependencies
+          name: Package backend
           command: |
-              pip   install --upgrade pip
-              pip install ansible
-      - run:
-          name: Deploy backend
-          command: |
-            # cd backend
-            # npm i
-            # npm run build
+            cd backend
+            npm i
+            npm run build
             # cd ..
             # pwd
             # # Zip the directory
-            # tar -C backend -czvf artifact.tar.gz .
-            # mkdir .circleci/ansible/roles/deploy/files
-            # cp artifact.tar.gz .circleci/ansible/roles/deploy/files/
+            tar -czf artifact.tar.gz dist/* package*
+            cd .. 
+            mkdir .circleci/ansible/roles/deploy/files
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
             # # cd .circleci/ansible
             # # echo "Contents  of the inventory.txt file is -------"
-            # # cat inventory.txt
-            echo "[web]" >> inventory.txt
-            echo "34.229.138.4" >> inventory.txt
-            ansible-playbook -i inventory.txt .circleci/ansible/deploy-backend.yml
+      - run:
+          name: Package backend
+          command: |
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
+            cd .circleci/ansible/
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+           
       # Here's where you will add some code to rollback on failure  
-   
+      - destroy-environment
+      - revert-migrations   
    
 
 workflows:
@@ -382,4 +371,5 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend
+      - deploy-backend:
+          requires: [run-migrations]
