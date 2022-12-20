@@ -67,7 +67,8 @@ commands:
             command: |
               curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
               sudo apt install -y nodejs
-
+              sudo npm install --global n
+              sudo n 13.8.0 
 
 
 
@@ -328,12 +329,12 @@ jobs:
             # # Zip the directory
             tar -czf artifact.tar.gz dist/* package*
             cd .. 
-            mkdir .circleci/ansible/roles/deploy/files
+ 
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
             # # cd .circleci/ansible
             # # echo "Contents  of the inventory.txt file is -------"
       - run:
-          name: Package backend
+          name: deploy backend
           command: |
             export TYPEORM_MIGRATIONS_DIR=./migrations
             export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
