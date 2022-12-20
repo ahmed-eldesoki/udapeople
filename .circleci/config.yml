@@ -17,10 +17,10 @@ commands:
       - run: 
           name: install ansible
           command: |
-            sudo apt update
+            sudo apt update 
             sudo apt install software-properties-common
             sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible
+            sudo apt install ansible -y
 
 
   destroy-environment:
@@ -58,6 +58,20 @@ commands:
                   npm install
                   npm run migration:revert
               fi  
+  install_NodeJS:
+    description: install nodeJS
+    steps:
+        - run:
+            name: install nodejs
+            command: |
+              curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+              sudo apt install -y nodejs
+
+
+
+
+
+  
 
 jobs:
   build-frontend:
@@ -262,9 +276,13 @@ jobs:
              
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli 
+      - image: cimg/base:stable 
     steps:
       - checkout
+      - install_awscli
+      - install_NodeJS
+      - restore_cache:
+          keys: "frontend-build"
       - run:
          name: Install tar utility
          command: |
@@ -359,8 +377,8 @@ workflows:
               only: [main]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
-      # - deploy-frontend
-      #     requires: [run-migrations]
+      - run-migrations:
+          requires: [configure-infrastructure]
+      - deploy-frontend
+          requires: [run-migrations]
       # - deploy-backend
