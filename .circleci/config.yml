@@ -377,7 +377,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            if curl -${API_URL}/api/status | grep "ok"
+            if curl ${API_URL}/api/status | grep "ok"
             then
                 exit 0
             else
@@ -395,8 +395,8 @@ jobs:
               else
                 return 1
               fi
-      - destroy-environment
-      - revert-migrations   
+      # - destroy-environment
+      # - revert-migrations   
    
 
 workflows:
