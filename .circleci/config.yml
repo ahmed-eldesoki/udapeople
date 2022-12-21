@@ -438,7 +438,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
-          name: Get old stack workflow id
+          name: Remove old stacks and files
           command: |
             # Fetch the Old workflow ID
             # export OldWorkflowID=$(aws cloudformation \
@@ -454,9 +454,7 @@ jobs:
             echo OldWorkflowID: "${OldWorkflowID}"
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
             export STACKS=[] #put the list of stacks here
-      - run:
-          name: Remove old stacks and files
-          command: |
+
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
