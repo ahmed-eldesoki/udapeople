@@ -374,9 +374,7 @@ jobs:
             # --output text)
             export API_URL=http://54.209.166.129:3030
             echo "${API_URL}"
-      - run:
-          name: Backend smoke test.
-          command: |
+  
             echo "$API_URL/api/status"
             if curl -s $API_URL/api/status | grep "ok"
             then
