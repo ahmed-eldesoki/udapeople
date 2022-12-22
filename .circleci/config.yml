@@ -56,8 +56,8 @@ commands:
               if (( $SUCCESS == 1 ));
               then
                   cd ~/project/backend
-                  sudo npm install
-                  sudo npm run migration:revert
+                   npm install
+                   npm run migration:revert
               fi  
   install_nodejs:
     description: install nodeJS
@@ -87,8 +87,8 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            sudo npm install
-            sudo npm run build
+            npm install
+            npm run build
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
@@ -98,14 +98,23 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      # - restore_cache:
-      #     keys: [backend-build]
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Back-end build
           command: |
+            echo $TYPEORM_CONNECTION 
+            echo $TYPEORM_ENTITIES 
+            echo $TYPEORM_HOST 
+            echo $TYPEORM_PORT 
+            echo $TYPEORM_USERNAME 
+            echo $TYPEORM_PASSWORD 
+            echo $TYPEORM_DATABASE 
+            echo $TYPEORM_MIGRATIONS 
+            echo $TYPEORM_MIGRATIONS_DIR 
             cd  backend
-            sudo npm install
-            sudo npm run build
+            npm install
+            npm run build
             ##
       - save_cache:
           paths: [backend/node_modules]
@@ -136,8 +145,8 @@ jobs:
           name: back-end test
           command: |
             cd  backend
-            sudo npm install
-            sudo npm run test
+            npm install
+            npm run test
     
   scan-frontend:
     docker:
@@ -170,11 +179,11 @@ jobs:
 
               cd backend
               # npm update path-parse --depth 3
-              sudo npm install   
-              sudo npm audit fix --audit-level=critical --force
-              sudo npm audit fix --audit-level=critical --force
-              sudo npm audit fix --force
-              sudo npm audit --audit-level=critical
+              npm install   
+              npm audit fix --audit-level=critical --force
+              npm audit fix --audit-level=critical --force
+              npm audit fix --force
+              npm audit --audit-level=critical
               
   deploy-infrastructure:
     docker:
@@ -257,10 +266,10 @@ jobs:
           name: Run migrations
           command: |
               cd backend
-              sudo npm install
-              sudo npm build
+              npm install
+              npm build
               # Run and save the migration output
-              sudo npm run migrations > migrations_dump.txt
+              npm run migrations > migrations_dump.txt
 
               cat migrations_dump.txt
           
@@ -308,8 +317,8 @@ jobs:
           command: |
               export NODE_ENV=production
               cd frontend
-              sudo npm install
-              sudo npm run build
+              npm install
+              npm run build
               tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
               aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
@@ -334,8 +343,8 @@ jobs:
           name: Package backend
           command: |
             cd backend
-            sudo npm i
-            sudo npm run build
+            npm i
+            npm run build
             # cd ..
             # pwd
             # # Zip the directory
