@@ -19,8 +19,8 @@
 - name: start app
   shell: |
     cd ~/app/dist
-    npm i
-    npm build
+    sudo npm i
+    sudo npm build
     
     pm2 stop default
     pm2 start main.js
