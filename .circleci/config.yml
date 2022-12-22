@@ -250,7 +250,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -334,7 +334,7 @@ jobs:
       - run:
           name: Package backend
           command: |
-            export NODE_ENV=production
+            # export NODE_ENV=production
             cd backend
             npm i
             npm run build
