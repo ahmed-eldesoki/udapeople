@@ -87,8 +87,8 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            npm install
-            npm run build
+            sudo npm install
+            sudo npm run build
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
@@ -308,8 +308,8 @@ jobs:
           command: |
               export NODE_ENV=production
               cd frontend
-              npm install
-              npm run build
+              sudo npm install
+              sudo npm run build
               tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
               aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
@@ -334,8 +334,8 @@ jobs:
           name: Package backend
           command: |
             cd backend
-            npm i
-            npm run build
+            sudo npm i
+            sudo npm run build
             # cd ..
             # pwd
             # # Zip the directory
