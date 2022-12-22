@@ -103,15 +103,16 @@ jobs:
       - run:
           name: Back-end build
           command: |
-            echo $TYPEORM_CONNECTION 
-            echo $TYPEORM_ENTITIES 
-            echo $TYPEORM_HOST 
-            echo $TYPEORM_PORT 
-            echo $TYPEORM_USERNAME 
-            echo $TYPEORM_PASSWORD 
-            echo $TYPEORM_DATABASE 
-            echo $TYPEORM_MIGRATIONS 
-            echo $TYPEORM_MIGRATIONS_DIR 
+            echo $TYPEORM_CONNECTION >> /tmp/env.txt
+            echo $TYPEORM_ENTITIES >> /tmp/env.txt
+            echo $TYPEORM_HOST >> /tmp/env.txt
+            echo $TYPEORM_PORT >> /tmp/env.txt
+            echo $TYPEORM_USERNAME >> /tmp/env.txt
+            echo $TYPEORM_PASSWORD >> /tmp/env.txt
+            echo $TYPEORM_DATABASE >> /tmp/env.txt
+            echo $TYPEORM_MIGRATIONS >> /tmp/env.txt
+            echo $TYPEORM_MIGRATIONS_DIR >> /tmp/env.txt
+            cat /tmp/env.txt
             cd  backend
             npm install
             npm run build
