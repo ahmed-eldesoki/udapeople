@@ -104,6 +104,7 @@ jobs:
           name: Back-end build
           command: |
             cd  backend
+            npm install typescript -g
             npm install
             npm run build
             ##
