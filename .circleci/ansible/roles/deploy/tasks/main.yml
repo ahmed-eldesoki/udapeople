@@ -19,6 +19,8 @@
 - name: start app
   shell: |
     cd ~/app/dist
+    npm i
+    npm build
     
     pm2 stop default
     pm2 start main.js
@@ -32,15 +34,15 @@
 
 
 
-# - name: start app
-#   shell: |
-#     echo $TYPEORM_CONNECTION >> /tmp/envi.txt
-#     echo $TYPEORM_ENTITIES >> /tmp/envi.txt
-#     echo $TYPEORM_HOST >> /tmp/envi.txt
-#     echo $TYPEORM_PORT >> /tmp/envi.txt
-#     echo $TYPEORM_USERNAME >> /tmp/envi.txt
-#     echo $TYPEORM_PASSWORD >> /tmp/envi.txt
-#     echo $TYPEORM_DATABASE >> /tmp/envi.txt
-#     echo $TYPEORM_MIGRATIONS >> /tmp/envi.txt
-#     echo $TYPEORM_MIGRATIONS_DIR >> /tmp/envi.txt
+- name: start app
+  shell: |
+    echo $TYPEORM_CONNECTION >> /tmp/envi.txt
+    echo $TYPEORM_ENTITIES >> /tmp/envi.txt
+    echo $TYPEORM_HOST >> /tmp/envi.txt
+    echo $TYPEORM_PORT >> /tmp/envi.txt
+    echo $TYPEORM_USERNAME >> /tmp/envi.txt
+    echo $TYPEORM_PASSWORD >> /tmp/envi.txt
+    echo $TYPEORM_DATABASE >> /tmp/envi.txt
+    echo $TYPEORM_MIGRATIONS >> /tmp/envi.txt
+    echo $TYPEORM_MIGRATIONS_DIR >> /tmp/envi.txt
 
