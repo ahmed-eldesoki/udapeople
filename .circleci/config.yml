@@ -353,6 +353,7 @@ jobs:
             export TYPEORM_MIGRATIONS_DIR=/home/ubuntu/app/dist/migrations
             export TYPEORM_ENTITIES=/home/ubuntu/app/dist/modules/domain/**/*.entity{.ts,.js}
             export TYPEORM_MIGRATIONS=/home/ubuntu/app/dist/migrations/*{.ts,.js}
+            export NODE_ENV=production
 
             cd .circleci/ansible/
             cat inventory.txt
