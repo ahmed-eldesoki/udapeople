@@ -15,9 +15,9 @@
     export NODE_ENV=production
     export VERSION=1
 
-    export TYPEORM_MIGRATIONS_DIR=/home/ubuntu/app/dist/migrations
-    export TYPEORM_ENTITIES=/home/ubuntu/app/dist/modules/domain/**/*.entity{.ts,.js}
-    export TYPEORM_MIGRATIONS=/home/ubuntu/app/dist/migrations/*{.ts,.js}
+    # export TYPEORM_MIGRATIONS_DIR=/home/ubuntu/app/dist/migrations
+    # export TYPEORM_ENTITIES=/home/ubuntu/app/dist/modules/domain/**/*.entity{.ts,.js}
+    # export TYPEORM_MIGRATIONS=/home/ubuntu/app/dist/migrations/*{.ts,.js}
 
     cd ~/app
     sudo npm install typescript@latest -g 
@@ -34,6 +34,8 @@
     npm i
     
     pm2 stop default
+    pm2 kill
+
     pm2 start main.js
     # netstat -tupln
     # npm run start
