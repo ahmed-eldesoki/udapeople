@@ -18,8 +18,14 @@
     export TYPEORM_MIGRATIONS_DIR=./migrations
     export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
     export TYPEORM_MIGRATIONS=./migrations/*{.ts,.js}
-    # Things you can change if you wish...
-     cd ~/app
+    export TYPEORM_HOST=udapeople.cfsfhcxwx9rs.us-east-1.rds.amazonaws.com
+    export TYPEORM_PORT=5432
+    export TYPEORM_USERNAME=postgres
+    export TYPEORM_PASSWORD=postgres
+    export TYPEORM_DATABASE=postgres
+
+    cd ~/app
+    sudo npm install typescript@latest -g 
     npm install
 
 
@@ -29,9 +35,9 @@
   shell: |
     cd ~/app/dist
     
-    npm install typescript@latest -g
+    sudo npm install typescript@latest -g
     npm i
-      
+    
     pm2 stop default
     pm2 start main.js
     # netstat -tupln
