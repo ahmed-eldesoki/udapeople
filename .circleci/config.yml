@@ -200,8 +200,8 @@ jobs:
           name: Ensure back-end infrastructure exists
           command: |
             cd .circleci/files
-            terraform init 
-            terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
+            sudo terraform init
+            sudo terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
             
             # aws cloudformation deploy \
             # --template-file .circleci/files/backend.yml \
@@ -240,7 +240,7 @@ jobs:
       #     command: |
       #         cat .circleci/ansible/inventory.txt
       
-      - destroy-environment
+      # - destroy-environment
 
   configure-infrastructure:
     docker:
