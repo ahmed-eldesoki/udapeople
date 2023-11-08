@@ -199,7 +199,7 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            cd files
+            cd .circleci/files
             terraform init 
             terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
             
