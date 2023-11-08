@@ -49,6 +49,6 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.allow_traffic.id]
   subnet_id = "subnet-0f996d162c75c1e98"
   tags = {
-    Name = "backend-${var.ID}"
+    Name = "backend-${var.id}"
   }
 }
