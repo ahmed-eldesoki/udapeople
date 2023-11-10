@@ -202,6 +202,7 @@ jobs:
           command: |
             cd .circleci/files
             sudo terraform init
+            echo $AWS_ACCESS_KEY_ID
             sudo terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
             
             # aws cloudformation deploy \
