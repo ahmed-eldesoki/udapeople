@@ -200,9 +200,11 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            # cd .circleci/files
-            # sudo terraform init
-            echo $AWS_ACCESS_KEY_ID
+            export AWS_ACCESS_KEY_ID="AKIASHQLY3AOGQA5NSER"
+            export AWS_SECRET_ACCESS_KEY="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"
+            cd .circleci/files
+            sudo terraform init
+      
             # sudo terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
             
             # aws cloudformation deploy \
