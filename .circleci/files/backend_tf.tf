@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_traffic"
   description = "Allow traffic fpr app"
-  vpc_id      = "vpc-06a09fee1640ec894"
+  vpc_id      = "vpc-032833ba77675f4de"
 
   ingress {
    
@@ -47,7 +47,7 @@ resource "aws_instance" "web" {
   ami           = "ami-0d118c6e63bcb554e"
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.allow_traffic.id]
-  subnet_id = "subnet-0f996d162c75c1e98"
+  subnet_id = "subnet-0c713b78d77516537"
   tags = {
     Name = "backend-${var.id}"
   }
