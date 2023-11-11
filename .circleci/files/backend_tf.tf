@@ -10,9 +10,9 @@ terraform {
 
 
 provider "aws" {
-    region = "eu-central-1"
-    access_key = "AKIASHQLY3AONUDL33UJ"
-    secret_key = "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"
+    # region = "eu-central-1"
+    # access_key = "AKIASHQLY3AONUDL33UJ"
+    # secret_key = "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"
 }
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_traffic"
