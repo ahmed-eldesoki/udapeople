@@ -1,9 +1,9 @@
 
-# provider "aws" {
-#     region = "eu-central-1"
-#      access_key = var.access_key
-#      secret_key = var.secret_key
-# }
+provider "aws" {
+    region = "eu-central-1"
+     access_key = var.access_key
+     secret_key = var.secret_key
+}
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_traffic"
   description = "Allow traffic fpr app"
