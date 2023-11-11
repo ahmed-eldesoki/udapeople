@@ -200,8 +200,8 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            export AWS_ACCESS_KEY_ID="AKIASHQLY3AOGQA5NSER"
-            export AWS_SECRET_ACCESS_KEY="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"
+            export AWS_ACCESS_KEY_ID="AKIASHQLY3AONUDL33UJ"
+            export AWS_SECRET_ACCESS_KEY="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"
             cd .circleci/files
             sudo terraform init
 
