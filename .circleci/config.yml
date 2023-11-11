@@ -206,6 +206,7 @@ jobs:
             sudo terraform init
             export TF_VAR_access_key=${AWS_ACCESS_KEY_ID}
             export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}
+            echo $TF_VAR_access_key
             sudo terraform apply -auto-approve -var "id=${CIRCLE_WORKFLOW_ID:0:7}"
             
             # aws cloudformation deploy \
