@@ -3,7 +3,6 @@ resource "aws_s3_bucket" "WebsiteBucket" {
 
   tags = {
     Name        = "udapeople-${var.id}"
-    Environment = "Dev"
   }
 }
 
