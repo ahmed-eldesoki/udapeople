@@ -1,9 +1,7 @@
 resource "aws_s3_bucket" "WebsiteBucket" {
-  bucket = "uda-people1232132"
+  bucket = "udapeople-${var.id}"
 
-  tags = {
-    Name        = "udapeople-${var.id}"
-  }
+  
 }
 
 resource "aws_s3_bucket_website_configuration" "WebsiteConf" {
