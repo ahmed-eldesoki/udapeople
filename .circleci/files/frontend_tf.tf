@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "WebsiteBucket" {
-  bucket = "udapeople-${var.id}"
+  bucket = "bucket-${var.id}"
 
-  
 }
 
 resource "aws_s3_bucket_website_configuration" "WebsiteConf" {
