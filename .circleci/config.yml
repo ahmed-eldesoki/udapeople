@@ -47,8 +47,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-             aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.workflow_id >>
-             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_id >>
+             terraform destroy
              aws s3 rm "s3://udapeople-<< parameters.workflow_id >>" --recursive
 
 
@@ -223,28 +222,28 @@ jobs:
       #         --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
       #         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
 
-      # - run:
-      #     name: Add back-end ip to ansible inventory
-      #     command: |
-      #       aws ec2 describe-instances \
-      #       --query 'Reservations[*].Instances[*].PublicIpAddress' \
-      #       --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-      #       --output text >> .circleci/ansible/inventory.txt
-      # - run:
-      #     name: inventory debug
-      #     command: |
-      #       cat .circleci/ansible/inventory.txt
+      - run:
+          name: Add back-end ip to ansible inventory
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --output text >> .circleci/ansible/inventory.txt
+      - run:
+          name: inventory debug
+          command: |
+            cat .circleci/ansible/inventory.txt
   
             
-      # - persist_to_workspace:
-      #     root: ~/
-      #     paths: 
-      #       - project/.circleci/ansible/inventory.txt
+      - persist_to_workspace:
+          root: ~/
+          paths: 
+            - project/.circleci/ansible/inventory.txt
 
-      # - run:
-      #     name: debug inv
-      #     command: |
-      #         cat .circleci/ansible/inventory.txt
+      - run:
+          name: debug inv
+          command: |
+              cat .circleci/ansible/inventory.txt
       
       # - destroy-environment
 

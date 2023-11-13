@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "WebsiteBucket" {
-  bucket = "bucket-${var.id}"
+  bucket = "udapeople-${var.id}"
 
 }
 
