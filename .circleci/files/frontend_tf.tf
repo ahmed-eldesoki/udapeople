@@ -47,4 +47,5 @@ data "aws_iam_policy_document" "public_read_access" {
       "${aws_s3_bucket.WebsiteBucket.arn}/*",
     ]
   }
+  depends_on = [aws_s3_bucket_public_access_block.example]
 }
