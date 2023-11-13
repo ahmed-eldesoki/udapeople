@@ -27,7 +27,7 @@ resource "aws_s3_bucket_public_access_block" "example" {
 
 resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
   bucket = aws_s3_bucket.WebsiteBucket.id
-  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+  policy = data.aws_iam_policy_document.public_read_access.json
 }
 
 data "aws_iam_policy_document" "public_read_access" {
@@ -36,15 +36,3 @@ data "aws_iam_policy_document" "public_read_access" {
 	  type = "*"
 	  identifiers = ["*"]
 	}
-
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
-
-    resources = [
-      aws_s3_bucket.WebsiteBucket.arn,
-      "${aws_s3_bucket.WebsiteBucket.arn}/*",
-    ]
-  }
-}
