@@ -245,7 +245,7 @@ jobs:
           command: |
               cat .circleci/ansible/inventory.txt
       
-      # - destroy-environment
+      - destroy-environment
 
   configure-infrastructure:
     docker:
@@ -255,7 +255,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["b5:87:4f:44:2b:ec:10:57:10:9f:3a:15:9a:32:4f:79"]
+          fingerprints: ["80:06:1e:65:27:6a:c4:ba:ca:24:e3:6f:83:f1:c5:59"]
       - attach_workspace:
           at: ~/
       
@@ -511,8 +511,8 @@ workflows:
           filters:
             branches:
               only: [main]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend:

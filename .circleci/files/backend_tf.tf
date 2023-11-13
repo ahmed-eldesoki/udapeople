@@ -48,6 +48,7 @@ resource "aws_security_group" "allow_traffic" {
 resource "aws_instance" "web" {
   ami           = "ami-0d118c6e63bcb554e"
   instance_type = "t2.micro"
+  key_name = "uda"
   vpc_security_group_ids = [aws_security_group.allow_traffic.id]
   subnet_id = "subnet-0c713b78d77516537"
   tags = {
