@@ -30,12 +30,12 @@ resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
   policy = data.aws_iam_policy_document.allow_access_from_another_account.json
 }
 
-data "aws_iam_policy_document" "allow_access_from_another_account" {
+data "aws_iam_policy_document" "public_read_access" {
   statement {
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
+	  type = "*"
+	  identifiers = ["*"]
+	}
 
     actions = [
       "s3:GetObject",
