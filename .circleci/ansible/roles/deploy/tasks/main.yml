@@ -35,7 +35,7 @@
 - name: statt app
   shell: |
     cd ~/app/dist
-    pm2 start main.js
+    pm2 start d
     # netstat -tupln
     # npm run start
 
