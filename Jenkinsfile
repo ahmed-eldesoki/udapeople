@@ -1,6 +1,6 @@
 pipeline {
   environment {
-        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+     
         KUBECONFIG = credentials('kubernetescred')
     }
   agent {
