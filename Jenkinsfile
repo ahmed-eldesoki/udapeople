@@ -62,5 +62,9 @@ pipeline {
   }
   }
 
-
+post {
+        always {
+            archiveArtifacts artifacts: 'backend/artifact${BUILD_NUMBER}.tar.gz', onlyIfSuccessful: true
+        }
+  }
 }
