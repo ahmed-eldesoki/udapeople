@@ -1,7 +1,7 @@
 pipeline {
   environment {
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
-        MY_KUBECONFIG = credentials('kubernetescred')
+        KUBECONFIG = credentials('kubernetescred')
     }
   agent {
     kubernetes {
@@ -55,7 +55,7 @@ pipeline {
                 // sh 'echo $FILE > /home/jenkins/agent/workspace/k8s-agent-test/key'
                 // }
                 sh '''
-                 kubectl --kubeconfig $MY_KUBECONFIG get pods
+                 kubectl  get pods
                  '''
             
     }
