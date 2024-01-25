@@ -4,11 +4,11 @@ FROM node:13.8.0-alpine3.11
 #     apt install -y curl
 # RUN curl -fsSL https://deb.nodesource.com/setup_lts.x |  bash - &&  apt install -y nodejs && npm install --global n && n 13.8.0 
 COPY package*.json ./
-RUN npm install
+# RUN npm install
 
 COPY . .
 
-RUN npm run build 
+# RUN npm run build 
 ENV TYPEORM_HOST=host.docker.internal \
  TYPEORM_PORT=5432 \
  TYPEORM_USERNAME=postgres \
