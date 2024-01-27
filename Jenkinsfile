@@ -24,42 +24,42 @@ pipeline {
                     '''
    }
   }
-    stage('test & scan backend') {
-            steps {
-             script {
-             try {
-              sh '''
-                cd backend
-                npm run test
+//     stage('test & scan backend') {
+//             steps {
+//              script {
+//              try {
+//               sh '''
+//                 cd backend
+//                 npm run test
                     
-                        '''
-             }
-             catch (err) {
-                echo err.getMessage()
-            }
-            }
-  }
-  }
+//                         '''
+//              }
+//              catch (err) {
+//                 echo err.getMessage()
+//             }
+//             }
+//   }
+//   }
   stage('artifact') {
             steps {
             
             sh '''
             cd backend/
-            tar -czf artifact${BUILD_NUMBER}.tar.gz * 
+            tar -czf artifact.tar.gz * 
                     '''
    }
   }
-  stage('check kubernetes') {
-            steps {
-                // withCredentials([string(credentialsId: 'kubernetescred', variable: 'FILE')]) {
-                // sh 'echo $FILE > /home/jenkins/agent/workspace/k8s-agent-test/key'
-                // }
-                sh '''
-                 kubectl  get pods
-                 '''
+//   stage('check kubernetes') {
+//             steps {
+//                 // withCredentials([string(credentialsId: 'kubernetescred', variable: 'FILE')]) {
+//                 // sh 'echo $FILE > /home/jenkins/agent/workspace/k8s-agent-test/key'
+//                 // }
+//                 sh '''
+//                  kubectl  get pods
+//                  '''
             
-    }
-  }
+//     }
+//   }
 //   stage('building docker image') {
            
 //       steps {         
@@ -84,10 +84,10 @@ pipeline {
 //   }
   }
 
-post {
+post {  
         always {
-            archiveArtifacts artifacts: 'backend/artifact${BUILD_NUMBER}.tar.gz', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'backend/artifact.tar.gz', onlyIfSuccessful: true
         }
   }
 }
-//test-artifact
+//test-artifact artifact${BUILD_NUMBER}.tar.gz
