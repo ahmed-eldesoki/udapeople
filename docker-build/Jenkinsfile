@@ -1,9 +1,9 @@
 pipeline {
  agent none
-  environment {
+//   environment {
      
-        KUBECONFIG = credentials('kubernetescred')
-    }
+//         KUBECONFIG = credentials('kubernetescred')
+//     }
   
   stages {
     stage('checkout & build backend') {
