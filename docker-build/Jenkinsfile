@@ -5,23 +5,23 @@ pipeline {
     }
   agent none
   stages {
-    stage('checkout & build backend') {
+//     stage('checkout & build backend') {
             
-            agent {
-                kubernetes {
-                inheritFrom 'kube-2'
-                defaultContainer 'alpine'
+//             agent {
+//                 kubernetes {
+//                 inheritFrom 'kube-2'
+//                 defaultContainer 'alpine'
 
-            }
-            }
-            steps {
+//             }
+//             }
+//             steps {
        
         
-          sh '''
-                pwd
-                    '''
-   }
-  }
+//           sh '''
+//                 pwd
+//                     '''
+//    }
+//   }
      stage('building docker image') {
 
       agent {
