@@ -45,7 +45,7 @@ pipeline {
             
             sh '''
             cd backend/
-            tar -czf artifact.tar.gz * 
+            tar -czf artifact${BUILD_NUMBER}.tar.gz * 
                     '''
    }
   }
@@ -86,7 +86,7 @@ pipeline {
 
 post {  
         always {
-            archiveArtifacts artifacts: 'backend/artifact.tar.gz', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'backend/*.tar.gz', onlyIfSuccessful: true
         }
   }
 }
