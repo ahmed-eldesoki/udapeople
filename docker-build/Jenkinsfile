@@ -1,47 +1,41 @@
 pipeline {
- agent none
-  environment {
-     
-        KUBECONFIG = credentials('kubernetescred')
-    }
-  
-  stages {
-    stage('checkout & build backend') {
-            
-            agent {
-                kubernetes {
-                inheritFrom 'kube-2'
-                defaultContainer 'alpine'
-
+    agent none
+    stages {
+        stage('Build') {
+            agent any
+            steps {
+                checkout scm
+                sh 'make'
+                stash includes: '**/target/*.jar', name: 'app'
             }
+        }
+        stage('Test on Linux') {
+            agent {
+                label 'linux'
             }
             steps {
-       
-        
-          sh '''
-                pwd
-                    '''
-   }
-  }
-    //  stage('building docker image') {
-
-    //   agent {
-    //             node {
-    //             label 'jenkins'
-                
-    //         }
-    //         }
-           
-    //   steps {         
-              
-    //     script {
-    //     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-    //     withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-    //                 dockerImage.push()
-    //   }
-    //   }      
-    //   }     
-    // }
-    
-  }
+                unstash 'app'
+                sh 'make check'
+            }
+            post {
+                always {
+                    junit '**/target/*.xml'
+                }
+            }
+        }
+        stage('Test on Windows') {
+            agent {
+                label 'windows'
+            }
+            steps {
+                unstash 'app'
+                bat 'make check'
+            }
+            post {
+                always {
+                    junit '**/target/*.xml'
+                }
+            }
+        }
+    }
 }
