@@ -11,10 +11,10 @@ pipeline {
    }
   }
   stages {
-    stage('checkout & build backend') {
+    stage(' build backend') {
             steps {
        
-          git branch: 'jenkins', url: 'https://github.com/ahmed-eldesoki/udapeople.git'
+        //   git branch: 'jenkins', url: 'https://github.com/ahmed-eldesoki/udapeople.git'
      
           sh '''
                 cd backend
