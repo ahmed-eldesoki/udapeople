@@ -25,10 +25,10 @@ pipeline {
      stage('building docker image') {
 
       agent {
-                node {
+                
                 label 'jenkins'
                 
-            }
+            
             }
            
       steps {         
