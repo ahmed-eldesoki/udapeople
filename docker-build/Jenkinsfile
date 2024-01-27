@@ -19,6 +19,11 @@ pipeline {
             steps {
        
              copyArtifacts(projectName: 'deploying-in-k8s', filter: 'backend/*.tar.gz');
+
+             // Extract the tar file
+             dir('path/to/artifacts') {
+             unarchive(mapping: ['*.tar.gz', 'extracted-folder'])
+                    }
              sh '''
                     ls -lh 
                         '''
