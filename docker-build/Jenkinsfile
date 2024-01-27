@@ -6,42 +6,42 @@ pipeline {
     }
   
   stages {
-//     stage('checkout & build backend') {
+    stage('checkout & build backend') {
             
-//             agent {
-//                 kubernetes {
-//                 inheritFrom 'kube-2'
-//                 defaultContainer 'alpine'
+            agent {
+                kubernetes {
+                inheritFrom 'kube-2'
+                defaultContainer 'alpine'
 
-//             }
-//             }
-//             steps {
+            }
+            }
+            steps {
        
         
-//           sh '''
-//                 pwd
-//                     '''
-//    }
-//   }
-     stage('building docker image') {
+          sh '''
+                pwd
+                    '''
+   }
+  }
+    //  stage('building docker image') {
 
-      agent {
-                node {
-                label 'jenkins'
+    //   agent {
+    //             node {
+    //             label 'jenkins'
                 
-            }
-            }
+    //         }
+    //         }
            
-      steps {         
+    //   steps {         
               
-        script {
-        dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-        withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-                    dockerImage.push()
-      }
-      }      
-      }     
-    }
+    //     script {
+    //     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+    //     withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+    //                 dockerImage.push()
+    //   }
+    //   }      
+    //   }     
+    // }
     
   }
 }
