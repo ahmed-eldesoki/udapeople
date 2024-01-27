@@ -18,7 +18,7 @@ pipeline {
             }
             steps {
        
-             copyArtifacts(projectName: 'deploying-in-k8s');
+             copyArtifacts(projectName: 'deploying-in-k8s', filter: 'backend/*.tar');
              sh '''
                     ls -lh 
                         '''
