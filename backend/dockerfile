@@ -9,10 +9,10 @@ COPY package*.json ./
 COPY . .
 
 # RUN npm run build 
-ENV TYPEORM_HOST=host.docker.internal \
+ENV TYPEORM_HOST=mypostgres \
  TYPEORM_PORT=5432 \
  TYPEORM_USERNAME=postgres \
- TYPEORM_PASSWORD=mysecretpassword \
+ TYPEORM_PASSWORD=postgresSuperUserPsw \
  TYPEORM_DATABASE=postgres \
  NODE_ENV=production \
  VERSION=1 \

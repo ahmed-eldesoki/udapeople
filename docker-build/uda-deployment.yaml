@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uda-backend
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uda-backend
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: uda-backend
+        image: ahmedeldesoki/udabackend
+        ports:
+        - containerPort: 80

@@ -1,9 +1,9 @@
 pipeline {
  
 
- agent none 
+  agent none 
   stages {
-    stage('checkout & build backend') {
+    stage('retrieving artifact') {
              environment {
      
                 KUBECONFIG = credentials('kubernetescred')
@@ -14,35 +14,35 @@ pipeline {
                 defaultContainer 'alpine'
 
             }
-            // label 'jenkins'
+            
             }
             steps {
        
-        
-          sh '''
-                pwd
-                    '''
+             copyArtifacts(projectName: 'deploying-in-k8s');
+             sh '''
+                    ls -lh 
+                        '''
    }
   }
-     stage('building docker image') {
+    // stage('building docker image') {
 
-      agent {
-                node {
-                label 'jenkins'
+    //     agent {
+    //             node {
+    //                 label 'jenkins'
+                    
+    //             }
+    //         }
+            
+    //     steps {         
                 
-            }
-            }
-           
-      steps {         
-              
-        script {
-        dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-        withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-                    dockerImage.push()
-      }
-      }      
-      }     
-    }
+    //         script {
+    //         dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+    //         withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+    //                     dockerImage.push()
+    //        }
+    //       }      
+    //      }     
+    //     }
     
   }
 }
