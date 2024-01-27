@@ -1,10 +1,10 @@
 pipeline {
- agent  'none' 
+ 
  environment {
      
         KUBECONFIG = credentials('kubernetescred')
     }
-  
+  agent none 
   stages {
     stage('checkout & build backend') {
             
