@@ -16,8 +16,7 @@ pipeline {
             }
             steps {
        
-        //   git branch: 'jenkins', url: 'https://github.com/ahmed-eldesoki/udapeople.git'
-     
+        
           sh '''
                 pwd
                     '''
@@ -35,9 +34,9 @@ pipeline {
       steps {         
               
         script {
-     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-      withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-                 dockerImage.push()
+        dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+        withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+                    dockerImage.push()
       }
       }      
       }     
