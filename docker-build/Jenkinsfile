@@ -3,14 +3,17 @@ pipeline {
      
         KUBECONFIG = credentials('kubernetescred')
     }
-  agent {
-    node {
-      label 'jenkins'
-     
-   }
-  }
+  agent none
   stages {
     stage('checkout & build backend') {
+            
+            agent {
+                kubernetes {
+                inheritFrom 'kube-2'
+                defaultContainer 'alpine'
+
+            }
+            }
             steps {
        
         //   git branch: 'jenkins', url: 'https://github.com/ahmed-eldesoki/udapeople.git'
@@ -21,6 +24,13 @@ pipeline {
    }
   }
      stage('building docker image') {
+
+      agent {
+                node {
+                label 'jenkins'
+                
+            }
+            }
            
       steps {         
               
