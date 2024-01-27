@@ -1,0 +1,25 @@
+pipeline {
+  environment {
+     
+        KUBECONFIG = credentials('kubernetescred')
+    }
+  agent {
+    node {
+      label 'jenkins'
+     
+   }
+  }
+  stages {
+    stage('checkout & build backend') {
+            steps {
+       
+        //   git branch: 'jenkins', url: 'https://github.com/ahmed-eldesoki/udapeople.git'
+     
+          sh '''
+                pwd
+                    '''
+   }
+  }
+    
+  }
+}

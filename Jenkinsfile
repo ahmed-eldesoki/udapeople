@@ -24,22 +24,22 @@ pipeline {
                     '''
    }
   }
-//     stage('test & scan backend') {
-//             steps {
-//              script {
-//              try {
-//               sh '''
-//                 cd backend
-//                 npm run test
+    stage('test & scan backend') {
+            steps {
+             script {
+             try {
+              sh '''
+                cd backend
+                npm run test
                     
-//                         '''
-//              }
-//              catch (err) {
-//                 echo err.getMessage()
-//             }
-//             }
-//   }
-//   }
+                        '''
+             }
+             catch (err) {
+                echo err.getMessage()
+            }
+            }
+  }
+  }
   stage('artifact') {
             steps {
             
