@@ -1,17 +1,48 @@
 pipeline {
-    agent none
-    stages {
-        
-        stage('Test on Linux') {
+ agent none
+  environment {
+     
+        KUBECONFIG = credentials('kubernetescred')
+    }
+  
+  stages {
+    stage('checkout & build backend') {
+            
             agent {
-                label 'jenkins'
+            //     kubernetes {
+            //     inheritFrom 'kube-2'
+            //     defaultContainer 'alpine'
+
+            // }
+            label 'jenkins'
             }
             steps {
-                
-                sh 'pwd'
-            }
-            
-        }
+       
         
-    }
+          sh '''
+                pwd
+                    '''
+   }
+  }
+    //  stage('building docker image') {
+
+    //   agent {
+    //             node {
+    //             label 'jenkins'
+                
+    //         }
+    //         }
+           
+    //   steps {         
+              
+    //     script {
+    //     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+    //     withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+    //                 dockerImage.push()
+    //   }
+    //   }      
+    //   }     
+    // }
+    
+  }
 }
