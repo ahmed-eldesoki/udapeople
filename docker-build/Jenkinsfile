@@ -1,13 +1,13 @@
 pipeline {
  
- environment {
-     
-        KUBECONFIG = credentials('kubernetescred')
-    }
+
  agent none 
   stages {
     stage('checkout & build backend') {
-            
+             environment {
+     
+                KUBECONFIG = credentials('kubernetescred')
+          }
             agent {
                 kubernetes {
                 inheritFrom 'kube-2'
@@ -24,25 +24,25 @@ pipeline {
                     '''
    }
   }
-    //  stage('building docker image') {
+     stage('building docker image') {
 
-    //   agent {
-    //             node {
-    //             label 'jenkins'
+      agent {
+                node {
+                label 'jenkins'
                 
-    //         }
-    //         }
+            }
+            }
            
-    //   steps {         
+      steps {         
               
-    //     script {
-    //     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-    //     withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-    //                 dockerImage.push()
-    //   }
-    //   }      
-    //   }     
-    // }
+        script {
+        dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+        withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+                    dockerImage.push()
+      }
+      }      
+      }     
+    }
     
   }
 }
