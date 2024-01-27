@@ -60,17 +60,17 @@ pipeline {
             
     }
   }
-  stage('building docker image') {
+//   stage('building docker image') {
            
-      steps {         
+//       steps {         
               
-        script {
-     dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-      withDockerRegistry([ credentialsId: "docker-hub", url: "" ])
-                 dockerImage.push()
-      }      
-      }     
-    }
+//         script {
+//      dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+//       withDockerRegistry([ credentialsId: "docker-hub", url: "" ])
+//                  dockerImage.push()
+//       }      
+//       }     
+//     }
   
 //   stage('pushing docker image') {
             
