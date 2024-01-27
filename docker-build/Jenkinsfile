@@ -9,12 +9,12 @@ pipeline {
     stage('checkout & build backend') {
             
             agent {
-            //     kubernetes {
-            //     inheritFrom 'kube-2'
-            //     defaultContainer 'alpine'
+                kubernetes {
+                inheritFrom 'kube-2'
+                defaultContainer 'alpine'
 
-            // }
-            label 'jenkins'
+            }
+            // label 'jenkins'
             }
             steps {
        
