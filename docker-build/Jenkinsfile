@@ -26,8 +26,8 @@ pipeline {
              // Extract the tar file
             
              sh '''
-                    cd backend
-                    ls -lh 
+                   tar -xzf *.tar.gz .
+                   ls -lh
                         '''
    }
   }
