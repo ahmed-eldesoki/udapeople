@@ -86,7 +86,7 @@ pipeline {
 
 post {  
         always {
-            archiveArtifacts artifacts: 'backend/*.tar.gz', onlyIfSuccessful: true
+            archiveArtifacts artifacts: '*.tar.gz', onlyIfSuccessful: true
         }
   }
 }
