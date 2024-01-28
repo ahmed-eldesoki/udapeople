@@ -6,50 +6,56 @@ pipeline {
 
   agent none 
   stages {
-    stage('retrieving artifact') {
-             environment {
+//     stage('retrieving artifact') {
+//              environment {
      
-                KUBECONFIG = credentials('kubernetescred')
-          }
-            agent {
-                kubernetes {
-                inheritFrom 'kube-2'
-                defaultContainer 'alpine'
+//                 KUBECONFIG = credentials('kubernetescred')
+//           }
+//             agent {
+//                 kubernetes {
+//                 inheritFrom 'kube-2'
+//                 defaultContainer 'alpine'
 
+//             }
+            
+//             }
+//             steps {
+       
+//              copyArtifacts(projectName: 'deploying-in-k8s');
+
+//              // Extract the tar file
+            
+//              sh '''
+//                    tar -xzf *.tar.gz 
+//                    ls -lh
+//                         '''
+//    }
+//   }
+    stage('building docker image') {
+
+        agent {
+                node {
+                    label 'jenkins'
+                    
+                }
             }
             
-            }
-            steps {
-       
-             copyArtifacts(projectName: 'deploying-in-k8s');
+        steps {         
+            copyArtifacts(projectName: 'deploying-in-k8s');
 
              // Extract the tar file
             
              sh '''
                    tar -xzf *.tar.gz 
                    ls -lh
-                        '''
-   }
-  }
-    // stage('building docker image') {
-
-    //     agent {
-    //             node {
-    //                 label 'jenkins'
-                    
-    //             }
-    //         }
-            
-    //     steps {         
-                
-    //         script {
-    //         dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
-    //         withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
-    //                     dockerImage.push()
-    //        }
-    //       }      
-    //      }     
-    //     }
+            script {
+            dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
+            withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
+                        dockerImage.push()
+           }
+          }      
+         }     
+        }
     
   }
 }
