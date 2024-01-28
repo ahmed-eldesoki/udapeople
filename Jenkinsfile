@@ -45,7 +45,8 @@ pipeline {
             
             sh '''
             cd backend/
-            tar -czf artifact${BUILD_NUMBER}.tar.gz * 
+            tar -czf ../artifact${BUILD_NUMBER}.tar.gz * 
+             
                     '''
    }
   }
