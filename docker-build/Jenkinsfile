@@ -41,13 +41,14 @@ pipeline {
             }
             
         steps {         
-            copyArtifacts(projectName: 'deploying-in-k8s');
+            copyArtifacts(projectName: 'deploying-in-k8s')
 
              // Extract the tar file
             
              sh '''
                    tar -xzf *.tar.gz 
                    ls -lh
+                   '''
             script {
             dockerImage = docker.build("ahmedeldesoki/udabackend:${BUILD_NUMBER}", "./backend")
             withDockerRegistry([ credentialsId: "docker-hub", url: "" ]) {
