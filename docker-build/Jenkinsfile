@@ -52,7 +52,7 @@ pipeline {
         
             sh '''
                 
-                helm install udapeople-0 helm/udapeople
+                helm upgrade udapeople-0 helm/udapeople --set image.tag=${BUILD_NUMBER}
 
                 '''
     }
