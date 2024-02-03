@@ -6,31 +6,7 @@ pipeline {
 
   agent none 
   stages {
-//     stage('retrieving artifact') {
-//              environment {
-     
-//                 KUBECONFIG = credentials('kubernetescred')
-//           }
-//             agent {
-//                 kubernetes {
-//                 inheritFrom 'kube-2'
-//                 defaultContainer 'alpine'
 
-//             }
-            
-//             }
-//             steps {
-       
-//              copyArtifacts(projectName: 'deploying-in-k8s');
-
-//              // Extract the tar file
-            
-//              sh '''
-//                    tar -xzf *.tar.gz 
-//                    ls -lh
-//                         '''
-//    }
-//   }
     stage('building docker image') {
 
         agent {
@@ -57,6 +33,30 @@ pipeline {
           }      
          }     
         }
+    stage('Deploying Backend') {
+            environment {
+
+            KUBECONFIG = credentials('kubernetescred')
+        }
+        agent {
+            kubernetes {
+            inheritFrom 'kube-2'
+            defaultContainer 'alpine'
+
+        }
+        
+        }
+        steps {
+
+           git url: "https://github.com/ahmed-eldesoki/udapeople.git", branch: 'jenkins'
+        
+            sh '''
+                
+                helm install udapeople-0 helm/udapeople
+
+                '''
+    }
+    }
     
   }
 }
