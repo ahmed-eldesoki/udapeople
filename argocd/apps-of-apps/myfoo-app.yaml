@@ -16,7 +16,7 @@ spec:
           value: ""
     path: argocd/app-foo
     repoURL: https://github.com/ahmed-eldesoki/udapeople.git
-    targetRevision: HEAD
+    targetRevision: jenkins
   syncPolicy:
     syncOptions:
     - ApplyOutOfSyncOnly=true
