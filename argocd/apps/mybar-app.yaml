@@ -2,10 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: uda-app-bar
-
+  namespace: argocd
 spec:
   destination:
-    namespace: argocd
+    
     server: https://kubernetes.default.svc:52522
   project: default
   source:
