@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     
-    server: https://kubernetes.default.svc:52522
+    server: https://kubernetes.default.svc
   project: default
   source:
     directory:
