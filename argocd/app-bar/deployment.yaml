@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udabackend-bar
+  namespace: bar
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: udabackend-bar
+  template:
+    metadata:
+      labels:
+        app: udabackend-bar
+    spec:
+      containers:
+      - image: ahmedeldesoki/udabackend:64
+        name: udabackend-bar
+        ports:
+        - containerPort: 3030

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uda-app-foo
+
+spec:
+  destination:
+    namespace: foo
+    server: https://kubernetes.default.svc:52522
+  project: default
+  source:
+    directory:
+      jsonnet:
+        tlas:
+        - name: ""
+          value: ""
+    path: apps/02-app-guestbook-dev
+    repoURL: https://github.com/ahmed-eldesoki/udapeople.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true

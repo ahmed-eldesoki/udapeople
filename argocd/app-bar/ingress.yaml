@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: udabackend-bar
+  namespace: foo
+spec:
+  rules:
+  - host: "udabackend-bar"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: udabackend-bar
+            port:
+              number: 3030
