@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: uda-app-foo
+  name: uda-app-bar
 
 spec:
   destination:
-    namespace: foo
+    namespace: bar
     server: https://kubernetes.default.svc:52522
   project: default
   source:
@@ -14,7 +14,7 @@ spec:
         tlas:
         - name: ""
           value: ""
-    path: argocd/app-foo
+    path: argocd/app-bar
     repoURL: https://github.com/ahmed-eldesoki/udapeople.git
     targetRevision: HEAD
   syncPolicy:
