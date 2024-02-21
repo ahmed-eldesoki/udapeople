@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udabackend-foo
+  namespace: foo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: udabackend-foo
+  template:
+    metadata:
+      labels:
+        app: udabackend-foo
+    spec:
+      containers:
+      - image: ahmedeldesoki/udabackend:64
+        name: udabackend-foo
+        ports:
+        - containerPort: 3030
