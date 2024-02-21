@@ -4,8 +4,8 @@ metadata:
   name: udabackend-foo
   namespace: foo
 spec:
-  replicas: 3
-  revisionHistoryLimit: 3
+  replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: udabackend-foo

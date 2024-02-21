@@ -1,0 +1,109 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-01-21T13:11:57Z"
+    labels:
+      run: test-backend
+    name: test-backend
+    namespace: default
+    resourceVersion: "2506389"
+    uid: f11036df-c373-4f4a-a6ed-9f3c884f893e
+  spec:
+    containers:
+    - image: ahmedeldesoki/test-backend
+      imagePullPolicy: Always
+      name: test-backend
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-282q5
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-282q5
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-01-21T13:11:57Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-01-22T10:23:39Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-01-22T10:23:39Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-01-21T13:11:57Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://da860f2d93cf298a4eb36dc865a79a8aa7b290692450f92ed5da3ad65f19fd13
+      image: ahmedeldesoki/test-backend:latest
+      imageID: docker-pullable://ahmedeldesoki/test-backend@sha256:cd3297310e4153b0ed8cd583602d5ce2c6281b43d1e71097707a466318622df5
+      lastState:
+        terminated:
+          containerID: docker://0feae64beeb8a075ed4c95d33092a74f348b792961b6193b010c3a3186f5d2ee
+          exitCode: 0
+          finishedAt: "2024-01-22T09:37:45Z"
+          reason: Completed
+          startedAt: "2024-01-21T13:11:59Z"
+      name: test-backend
+      ready: true
+      restartCount: 1
+      started: true
+      state:
+        running:
+          startedAt: "2024-01-22T10:23:38Z"
+    hostIP: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.135
+    podIPs:
+    - ip: 10.244.1.135
+    qosClass: BestEffort
+    startTime: "2024-01-21T13:11:57Z"
+kind: List
+metadata:
+  resourceVersion: ""
