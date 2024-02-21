@@ -18,9 +18,13 @@ spec:
     repoURL: https://github.com/ahmed-eldesoki/udapeople.git
     targetRevision: jenkins
   syncPolicy:
+<<<<<<< HEAD
     automated: 
       prune: true
       allowEmpty: true
+=======
+    automated: {}
+>>>>>>> parent of 90a96d3 (editing allowEmpty to false)
 
     # syncOptions:
     # - ApplyOutOfSyncOnly=true
