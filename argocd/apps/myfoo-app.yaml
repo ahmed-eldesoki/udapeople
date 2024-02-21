@@ -20,7 +20,7 @@ spec:
   syncPolicy:
     automated: 
       prune: true
-      allowEmpty: false
+      allowEmpty: true
 
     # syncOptions:
     # - ApplyOutOfSyncOnly=true
