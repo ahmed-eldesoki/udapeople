@@ -18,7 +18,9 @@ spec:
     repoURL: https://github.com/ahmed-eldesoki/udapeople.git
     targetRevision: jenkins
   syncPolicy:
-    automated: {}
+    automated: 
+      prune: true
+      allowEmpty: false
 
     # syncOptions:
     # - ApplyOutOfSyncOnly=true
