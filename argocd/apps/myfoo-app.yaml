@@ -18,13 +18,7 @@ spec:
     repoURL: https://github.com/ahmed-eldesoki/udapeople.git
     targetRevision: jenkins
   syncPolicy:
-<<<<<<< HEAD
-    automated: 
-      prune: true
-      allowEmpty: false
-=======
     automated: {}
->>>>>>> parent of 49edb2b (adding deploy file again)
 
     # syncOptions:
     # - ApplyOutOfSyncOnly=true
